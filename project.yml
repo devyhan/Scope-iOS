@@ -1,0 +1,22 @@
+name: Scope
+
+options:
+  usesTabs: false
+  indentWidth: 2
+  tabWidth: 2
+  transitivelyLinkDependencies: true
+  createIntermediateGroups: true
+  developmentLanguage: ko
+  deploymentTarget:
+    iOS: 14.0 
+
+targetTemplates:
+  CoreDomain:
+    type: framework
+    platform: [iOS]
+
+parallelizeBuild: true
+buildImplicitDependencies: true
+
+include: 
+  - Application/project.yml
