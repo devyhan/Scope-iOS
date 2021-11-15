@@ -5,7 +5,17 @@ import ComposableArchitecture
 struct Scope: App {
   var body: some Scene {
     WindowGroup {
-      Text("Embed ComposableArchitecture")
+      AppView(
+        store: Store(
+          initialState: SearchState(),
+          reducer: searchReducer.debug(),
+          environment: SearchEnvironment(
+            weatherClient: WeatherClient.live,
+            mainQueue: .main
+          )
+        )
+      )
+      .inject()
     }
   }
 }

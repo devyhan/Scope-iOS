@@ -14,7 +14,8 @@ let package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.27.1")
+    .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.27.1"),
+    .package(url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.1.3")
   ],
   targets: [
     .target(
@@ -23,6 +24,10 @@ let package = Package(
         .product(
           name: "ComposableArchitecture",
           package: "swift-composable-architecture"
+        ),
+        .product(
+            name: "Introspect",
+            package: "SwiftUI-Introspect"
         )
       ]
     )

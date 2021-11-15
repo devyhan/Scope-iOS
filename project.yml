@@ -8,7 +8,7 @@ options:
   createIntermediateGroups: true
   developmentLanguage: ko
   deploymentTarget:
-    iOS: 14.0 
+    iOS: 15.0 
 
 targetTemplates:
   CoreDomain:
