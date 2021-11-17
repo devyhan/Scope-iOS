@@ -10,13 +10,12 @@ options:
   deploymentTarget:
     iOS: 15.0 
 
-targetTemplates:
-  CoreDomain:
-    type: framework
-    platform: [iOS]
-
 parallelizeBuild: true
 buildImplicitDependencies: true
+
+projectReferences:      
+  Core:
+    path: ./Core/ScopeCore.xcodeproj
 
 include: 
   - Application/project.yml

@@ -24,8 +24,21 @@ targets:
           CODE_SIGN_IDENTITY: "Apple Development"
 
     dependencies:
+      - target: Core/Github_${platform}
       - package: SPMProxy
         embed: true
+
+schemes:
+  Application_iOS:
+    build:
+      targets:
+        Application_iOS: ["build", "archive"]
+    run:
+      targets:
+        Application_iOS: ["run"]
+    archive:
+      targets:
+        Application_iOS: ["archive"]
 
 packages:
   SPMProxy:
