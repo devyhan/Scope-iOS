@@ -285,7 +285,6 @@ struct AppView: View {
         .navigationTitle("⌗ " + viewStore.searchQuery)
         .toolbar(content: toolbarView)
       }
-      .navigationViewStyle(StackNavigationViewStyle())
     }
   }
   
@@ -351,6 +350,61 @@ struct AppView: View {
   //    }
   //  }
 }
+
+// MARK: - AppView
+//struct AppView: View {
+//  let store: Store<SearchState, SearchAction>
+//  
+//  var body: some View {
+//    WithViewStore(store) { viewStore in
+//      NavigationView {
+//        VStack(alignment: .leading, spacing: .zero) {
+//          
+//          if viewStore.isCommited == .home {
+//            List(viewStore.scopes.filter{$0.hasPrefix(viewStore.searchText)}, id: \.self) { scope in
+//              Text(scope)
+//            }
+//          }
+//          
+//          WeatherClientView(store: store)
+//          
+//          HStack {
+//            TextField(
+//              viewStore.scopeTitle != Scopes.home.rawValue ? "스코프를 재설정 하시려면 home을 입력해 주세요." : "원하는 스코프를 정해주세요.",
+//              text: viewStore.binding(
+//                get: \.searchQuery,
+//                send: SearchAction.searchQueryChanged),
+//              onCommit:  {
+//                switch viewStore.isCommited {
+//                case .home:
+//                  viewStore.send(.commitScope(Scopes(rawValue: viewStore.scopes.first ?? "home") ?? .home))
+//                case .weatherClient:
+//                  if viewStore.searchQuery == Scopes.home.rawValue {
+//                    viewStore.send(.commitScope(.home))
+//                  }
+//                case .github:
+//                  return
+//                }
+//                viewStore.send(.searchQueryChanged(String()))
+//              }
+//            )
+//              .introspectTextField { textField in
+//                textField.becomeFirstResponder()
+//              }
+//              .font(.body)
+//              .textFieldStyle(RoundedBorderTextFieldStyle())
+//              .autocapitalization(.none)
+//              .disableAutocorrection(true)
+//              .frame(height: 50)
+//          }
+//          .padding([.leading, .trailing], 16)
+//        }
+//        .navigationTitle("# " + viewStore.scopeTitle)
+//      }
+//      .navigationViewStyle(StackNavigationViewStyle())
+//    }
+//  }
+//}
 
 // MARK: - Private helpers
 //private func formattedWeatherDay(_ data: LocationWeather.ConsolidatedWeather, isToday: Bool)
