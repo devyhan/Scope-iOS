@@ -8,7 +8,7 @@ struct Scope: App {
       AppView(
         store: Store(
           initialState: SearchState(),
-          reducer: searchReducer.debug(),
+          reducer: searchReducer,
           environment: SearchEnvironment(
             weatherClient: WeatherClient.live,
             mainQueue: .main

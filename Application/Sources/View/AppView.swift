@@ -9,19 +9,32 @@ import SwiftUI
 import ComposableArchitecture
 import Introspect
 
+// MARK: - Scopes
+
+enum Scopes: String, CaseIterable, Equatable {
+  case home
+  case weatherClient
+  case github
+}
+
 // MARK: - Search feature domain
 struct SearchState: Equatable {
+  var searchText = ""
+  var scopes: [String] = Scopes.allCases.map { $0.rawValue }
+  var scopeTitle: String = "Scope"
   var locations: [Location] = []
   var locationWeather: LocationWeather?
   var locationWeatherRequestInFlight: Location?
   var searchQuery = ""
+  var isCommited: Scopes = .home
 }
 
 enum SearchAction: Equatable {
-  case locationsResponse(Result<[Location], WeatherClient.Failure>)
   case locationTapped(Location)
-  case locationWeatherResponse(Result<LocationWeather, WeatherClient.Failure>)
   case searchQueryChanged(String)
+  case locationWeatherResponse(Result<LocationWeather, WeatherClient.Failure>)
+  case locationsResponse(Result<[Location], WeatherClient.Failure>)
+  case commitScope(Scopes)
 }
 
 struct SearchEnvironment {
@@ -36,49 +49,114 @@ let searchReducer = Reducer<SearchState, SearchAction, SearchEnvironment> {
   case .locationsResponse(.failure):
     state.locations = []
     return .none
-
+    
   case let .locationsResponse(.success(response)):
     state.locations = response
     return .none
-
+    
   case let .locationTapped(location):
     struct SearchWeatherId: Hashable {}
-
+    
     state.locationWeatherRequestInFlight = location
-
+    
     return environment.weatherClient
       .weather(location.id)
       .receive(on: environment.mainQueue)
       .catchToEffect(SearchAction.locationWeatherResponse)
       .cancellable(id: SearchWeatherId(), cancelInFlight: true)
-
+    
   case let .searchQueryChanged(query):
-    struct SearchLocationId: Hashable {}
-
+    
     state.searchQuery = query
-
-    // When the query is cleared we can clear the search results, but we have to make sure to cancel
-    // any in-flight search requests too, otherwise we may get data coming in later.
-    guard !query.isEmpty else {
-      state.locations = []
-      state.locationWeather = nil
-      return .cancel(id: SearchLocationId())
+    
+    switch state.isCommited {
+    case .home:
+      if query.isEmpty {
+        state.scopes = Scopes.allCases.map { $0.rawValue }
+      } else {
+        state.scopes = Scopes.allCases.map { $0.rawValue }
+        state.scopes = state.scopes.filter { $0.lowercased().contains(query.lowercased()) }
+      }
+      state.scopeTitle = state.scopes.first ?? String()
+      return .none
+    case .weatherClient:
+      struct SearchLocationId: Hashable {}
+      guard !query.isEmpty else {
+        state.locations = []
+        state.locationWeather = nil
+        return .cancel(id: SearchLocationId())
+      }
+      
+      return environment.weatherClient
+        .searchLocation(query)
+        .debounce(id: SearchLocationId(), for: 0.3, scheduler: environment.mainQueue)
+        .catchToEffect(SearchAction.locationsResponse)
+    case .github:
+      return .none
     }
-
-    return environment.weatherClient
-      .searchLocation(query)
-      .debounce(id: SearchLocationId(), for: 0.3, scheduler: environment.mainQueue)
-      .catchToEffect(SearchAction.locationsResponse)
-
+    
   case let .locationWeatherResponse(.failure(locationWeather)):
     state.locationWeather = nil
     state.locationWeatherRequestInFlight = nil
     return .none
-
+    
   case let .locationWeatherResponse(.success(locationWeather)):
     state.locationWeather = locationWeather
     state.locationWeatherRequestInFlight = nil
     return .none
+    
+  case .commitScope(let scope):
+    state.isCommited = scope
+    return .none
+  }
+}
+
+struct WeatherClientView: View {
+  let store: Store<SearchState, SearchAction>
+  
+  var body: some View {
+    WithViewStore(store) { viewStore in
+      if viewStore.isCommited == .weatherClient {
+        List {
+          ForEach(viewStore.locations, id: \.id) { location in
+            VStack(alignment: .leading) {
+              Button(action: { viewStore.send(.locationTapped(location)) }) {
+                HStack {
+                  Text(location.title)
+                  
+                  if viewStore.locationWeatherRequestInFlight?.id == location.id {
+                    ProgressView()
+                  }
+                }
+              }
+              
+              if location.id == viewStore.locationWeather?.id {
+                self.weatherView(locationWeather: viewStore.locationWeather)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  func weatherView(locationWeather: LocationWeather?) -> some View {
+    guard let locationWeather = locationWeather else {
+      return AnyView(EmptyView())
+    }
+    
+    let days = locationWeather.consolidatedWeather
+      .enumerated()
+      .map { idx, weather in formattedWeatherDay(weather, isToday: idx == 0) }
+    
+    return AnyView(
+      VStack(alignment: .leading) {
+        ForEach(days, id: \.self) { day in
+          Text(day)
+        }
+      }
+        .padding([.leading], 16)
+    )
   }
 }
 
@@ -87,86 +165,70 @@ struct AppView: View {
   let store: Store<SearchState, SearchAction>
   
   var body: some View {
-    WithViewStore(self.store) { viewStore in
+    WithViewStore(store) { viewStore in
       NavigationView {
         VStack(alignment: .leading) {
-          List {
-            ForEach(viewStore.locations, id: \.id) { location in
-              VStack(alignment: .leading) {
-                Button(action: { viewStore.send(.locationTapped(location)) }) {
-                  HStack {
-                    Text(location.title)
-
-                    if viewStore.locationWeatherRequestInFlight?.id == location.id {
-                      ProgressView()
-                    }
-                  }
-                }
-
-                if location.id == viewStore.locationWeather?.id {
-                  self.weatherView(locationWeather: viewStore.locationWeather)
-                }
-              }
+          
+          if viewStore.isCommited == .home {
+            List(viewStore.scopes.filter{$0.hasPrefix(viewStore.searchText)}, id: \.self) { scope in
+              Text(scope)
             }
           }
+          
+          WeatherClientView(store: store)
+          
           HStack {
-            Image(systemName: "magnifyingglass")
             TextField(
-              "New York, San Francisco, ...",
+              viewStore.scopeTitle != Scopes.home.rawValue ? "스코프를 재설정 하시려면 home을 입력해 주세요." : "원하는 스코프를 정해주세요.",
               text: viewStore.binding(
-                get: \.searchQuery, send: SearchAction.searchQueryChanged)
+                get: \.searchQuery,
+                send: SearchAction.searchQueryChanged),
+              onCommit:  {
+                switch viewStore.isCommited {
+                case .home:
+                  viewStore.send(.commitScope(Scopes(rawValue: viewStore.scopes.first ?? "home") ?? .home))
+                case .weatherClient:
+                  if viewStore.searchQuery == Scopes.home.rawValue {
+                    viewStore.send(.commitScope(.home))
+                  }
+                case .github:
+                  return
+                }
+                viewStore.send(.searchQueryChanged(String()))
+              }
             )
               .introspectTextField { textField in
-                  textField.becomeFirstResponder()
+                textField.becomeFirstResponder()
               }
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .autocapitalization(.none)
-            .disableAutocorrection(true)
+              .textFieldStyle(RoundedBorderTextFieldStyle())
+              .autocapitalization(.none)
+              .disableAutocorrection(true)
           }
           .padding([.leading, .trailing], 16)
         }
-        .navigationBarTitle("Search")
+        .navigationTitle("# " + viewStore.scopeTitle)
       }
       .navigationViewStyle(StackNavigationViewStyle())
     }
-  }
-
-  func weatherView(locationWeather: LocationWeather?) -> some View {
-    guard let locationWeather = locationWeather else {
-      return AnyView(EmptyView())
-    }
-
-    let days = locationWeather.consolidatedWeather
-      .enumerated()
-      .map { idx, weather in formattedWeatherDay(weather, isToday: idx == 0) }
-
-    return AnyView(
-      VStack(alignment: .leading) {
-        ForEach(days, id: \.self) { day in
-          Text(day)
-        }
-      }
-      .padding([.leading], 16)
-    )
   }
 }
 
 // MARK: - Private helpers
 private func formattedWeatherDay(_ data: LocationWeather.ConsolidatedWeather, isToday: Bool)
-  -> String
+-> String
 {
   let date =
-    isToday
-    ? "Today"
-    : dateFormatter.string(from: data.applicableDate).capitalized
-
+  isToday
+  ? "Today"
+  : dateFormatter.string(from: data.applicableDate).capitalized
+  
   return [
     date,
     "\(Int(round(data.theTemp)))℃",
     data.weatherStateName,
   ]
-  .compactMap { $0 }
-  .joined(separator: ", ")
+    .compactMap { $0 }
+    .joined(separator: ", ")
 }
 
 private let dateFormatter: DateFormatter = {
@@ -179,7 +241,7 @@ private let dateFormatter: DateFormatter = {
 struct SearchView_Previews: PreviewProvider {
   static var previews: some View {
     let store = Store(
-      initialState: SearchState(),
+      initialState: SearchState(isCommited: .home),
       reducer: searchReducer,
       environment: SearchEnvironment(
         weatherClient: WeatherClient(
@@ -222,10 +284,10 @@ struct SearchView_Previews: PreviewProvider {
         mainQueue: .main
       )
     )
-
+    
     return Group {
       AppView(store: store)
-
+      
       AppView(store: store)
         .environment(\.colorScheme, .dark)
     }
