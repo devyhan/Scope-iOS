@@ -22,6 +22,7 @@ parallelizeBuild: true
 buildImplicitDependencies: true
     
 include:
+  - Common/project.yml
   - Github/project.yml
   
 targetTemplates:

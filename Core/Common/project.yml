@@ -1,0 +1,15 @@
+targets:
+  Common:
+    templates: [CoreDomain]
+    templateAttributes:
+      CoreName: Common
+
+  CommonData:
+    templates: [CoreData]
+    templateAttributes:
+      CoreName: Common
+      
+  CommonTests:
+    templates: [CoreTests]
+    templateAttributes:
+      CoreName: Common
