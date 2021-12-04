@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import WeatherClientData
 
 @main
 struct Scope: App {
@@ -7,15 +8,23 @@ struct Scope: App {
     WindowGroup {
       AppView(
         store: Store(
-          initialState: SearchState(),
-          reducer: searchReducer,
-          environment: SearchEnvironment(
-            weatherClient: WeatherClient.live,
-            mainQueue: .main
-          )
+          initialState: AppState(),
+          reducer: AppView.appReducer,
+          environment: .live
         )
       )
       .inject()
     }
   }
+}
+
+extension AppEnvironment {
+  static let live: AppEnvironment = { 
+    let weatherClient = WeatherClientCore()
+    
+    return .init(
+      mainQueue: .main,
+      weatherCLient: weatherClient
+    )
+  }()
 }

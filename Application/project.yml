@@ -25,6 +25,10 @@ targets:
 
     dependencies:
       - target: Core/Github_${platform}
+      - target: Core/WeatherClient_${platform}
+      - target: Core/WeatherClientData_${platform}
+      - target: Core/Common_${platform}
+      - target: Core/CommonData_${platform}
       - package: SPMProxy
         embed: true
 

@@ -1,0 +1,22 @@
+targets:
+  WeatherClient:
+    templates: [CoreDomain]
+    templateAttributes:
+      CoreName: WeatherClient
+    dependencies:
+      - target: Common_${platform}
+      - target: CommonData_${platform}
+
+  WeatherClientData:
+    templates: [CoreData]
+    templateAttributes:
+      CoreName: WeatherClient
+    dependencies:
+      - target: Common_${platform}
+      - target: CommonData_${platform}
+      
+  WeatherClientTests:
+    templates: [CoreTests]
+    templateAttributes:
+      CoreName: WeatherClient
+      

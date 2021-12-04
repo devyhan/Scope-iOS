@@ -24,6 +24,7 @@ buildImplicitDependencies: true
 include:
   - Common/project.yml
   - Github/project.yml
+  - WeatherClient/project.yml
   
 targetTemplates:
   CoreDomain:
