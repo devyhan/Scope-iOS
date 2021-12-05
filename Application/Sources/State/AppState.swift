@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+struct AppState: Equatable {
+  var scopes: [String] = Scopes.allCases.map { $0.rawValue }
+}

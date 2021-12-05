@@ -9,15 +9,6 @@ import ComposableArchitecture
 import WeatherClient
 import WeatherClientData
 
-enum AppAction {
-  case searchQueryChanged(String)
-  case locationWeatherResponse(Result<LocationWeather, Error>)
-}
-
-struct AppState: Equatable {
-  var scopes: [String] = Scopes.allCases.map { $0.rawValue }
-}
-
 extension AppView {
   public static let appReducer = Reducer.combine(
     Reducer<AppState, AppAction, AppEnvironment>() { state, action, environment in

@@ -6,7 +6,6 @@
 //
 
 import ComposableArchitecture
-
 import WeatherClient
 
 public class AppEnvironment {
