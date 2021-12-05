@@ -18,10 +18,6 @@ struct GetWeatherImpl: GetWeather {
       .map { data, _ in data } 
       .decode(type: LocationWeatherDTO.self, decoder: jsonDecoder)
       .map { translator($0) }
-//      .mapError { _ in Failure() }
       .eraseToAnyPublisher()
   }
 }
-
-
-// MARK: - https://www.metaweather.com/api/

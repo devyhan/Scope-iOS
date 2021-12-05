@@ -19,40 +19,6 @@ struct GetLoactionImpl: GetLocation {
       .map { data, _ in data }
       .decode(type: [LocationDTO].self, decoder: jsonDecoder)
       .map { $0.map { translator($0)} }
-//      .mapError { _ in Failure() }
       .eraseToAnyPublisher()
   }
 }
-
-
-//extension Array {
-//    func customMap<U>(f: (Element) -> U) -> [U] {
-//        var result = [U]()
-//
-//        for x in self {
-//            result.append(f(x))
-//        }
-//
-//        return result
-//    }
-//}
-//
-//extension Publisher {
-//  func translate<T, R>(dto: T, type: R) -> AnyPublisher<Self.Output, Self.Failure>
-//        where T: Publisher, T.Output: Equatable, T.Failure == Self.Failure {
-////        combineLatest(dto)
-////            .removeDuplicates(by: {
-////                (first, second) -> Bool in
-////                first.1 == second.1
-////            })
-////            .map { first in
-////                first.0
-////        }
-//
-//          Just(dto)
-//            .map {
-//              $0.map { R }
-//            }
-//        .eraseToAnyPublisher()
-//    }
-//}
