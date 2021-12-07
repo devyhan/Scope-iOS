@@ -5,13 +5,14 @@
 //  Created by 조요한 on 2021/12/05.
 //
 
-import Foundation
+import ComposableArchitecture
 import WeatherClient
 
-enum AppAction {
-  case locationTapped(Location)
-  case searchQueryChanged(String)
-  case locationWeatherResponse(Result<LocationWeather, Error>)
-  case locationsResponse(Result<[Location], Error>)
-  case commitScope(Scopes)
+enum AppAction: BindableAction {
+  case binding(BindingAction<AppState>)
+  case home(HomeAction)
+  case weatherClient(WeatherClientAction)
 }
+
+enum HomeAction {}
+enum WeatherClientAction {}

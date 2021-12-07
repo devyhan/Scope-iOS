@@ -11,10 +11,10 @@ import Introspect
 
 // MARK: - Scopes
 
-enum Scopes: String, CaseIterable, Equatable {
-  case home
-  case weatherClient
-}
+//enum Scopes: String, CaseIterable, Equatable {
+//  case home
+//  case weatherClient
+//}
 
 // MARK: - Search feature domain
 //struct SearchState: Equatable {
@@ -157,6 +157,36 @@ enum Scopes: String, CaseIterable, Equatable {
 //  }
 //}
 
+struct HomeView: View {
+  let store: Store<HomeState, HomeAction>
+  
+  init(store: Store<HomeState, HomeAction>) {
+    self.store = store
+  }
+  
+  var body: some View {
+    WithViewStore(store) { viewStore in
+      List(viewStore.allCase, id: \.self) { scope in
+        Text(scope.uppercased())
+      }
+    }
+  }
+}
+
+struct WeatherClientView: View {
+  let store: Store<WeatherClientState, WeatherClientAction>
+  
+  init(store: Store<WeatherClientState, WeatherClientAction>) {
+    self.store = store
+  }
+  
+  var body: some View {
+    WithViewStore(store) { viewStore in
+      Text("weather client")
+    }
+  }
+}
+
 // MARK: - AppView
 struct AppView: View {
   let store: Store<AppState, AppAction>
@@ -167,61 +197,159 @@ struct AppView: View {
   
   var body: some View {
     WithViewStore(store) { viewStore in
-      VStack(spacing: .zero) {
-        Text("gooooooooooood")
-          .onAppear {
-            viewStore.send(.searchQueryChanged(""))
+      NavigationView {
+        ZStack {
+          VStack(alignment: .leading, spacing: .zero) {
+            SwitchStore(store.scope(state: \.scope)) {
+              CaseLet(state: /AppState.Scope.home, action: AppAction.home, then: HomeView.init(store:))
+              CaseLet(state: /AppState.Scope.weatherClient, action: AppAction.weatherClient, then: WeatherClientView.init(store:))
+            }
           }
+          .edgesIgnoringSafeArea(.bottom)
+          
+          VStack {
+            Spacer()
+            
+            if viewStore.isSearchBarHidden {
+              Rectangle().fill(Color.black).frame(height: 1)
+              HStack {
+                Spacer()
+                Label(title: {
+                  Text("다시 검색")
+                    .font(.system(size: 10, weight: .light))
+                }, icon: {
+                  Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .frame(width: 10, height: 10)
+                    .foregroundColor(Color.black)
+                })
+                Spacer()
+              }
+              .background(.thinMaterial)
+              .edgesIgnoringSafeArea(.bottom)
+              .onTapGesture {
+                viewStore.send(.set(\.$isSearchBarHidden, false))
+              }
+            } else {
+              HStack {
+                Menu {
+                  Button {
+                    viewStore.send(.set(\.$isSearchBarHidden, true))
+                  } label: {
+                    Label(title: {
+                      Text("전체 화면으로 탐색")
+                    }, icon: {
+                      Image(systemName: "arrow.up.left.and.arrow.down.right")
+                        .foregroundColor(Color.white)
+                    })
+                  }
+                } label: {
+                  Image(systemName: "option")
+                    .foregroundColor(Color.white)
+                }
+                
+                TextField(
+                  "원하는 스코프를 입력하세요",
+                  text: viewStore.binding(\.$searchQuery),
+                  onCommit: {
+                  
+                  }
+                )
+                  .introspectTextField { textField in
+                    textField.becomeFirstResponder()
+                  }
+                  .autocapitalization(.none)
+                  .disableAutocorrection(true)
+                  .foregroundColor(Color.white)
+                  .multilineTextAlignment(.center)
+                
+                Button {
+                  print("commit action")
+                } label: {
+                  Image(systemName: "return")
+                    .foregroundColor(Color.white)
+                }
+              }
+              .padding()
+              .background(RoundedRectangle(cornerRadius: 15).fill(Color.black))
+              .padding(.horizontal, 20)
+              .padding(.vertical, 10)
+              .background(.thinMaterial)
+              .frame(
+                width: UIScreen.main.bounds.width,
+                height: 70
+              )
+            }
+          }
+        }
+        .navigationTitle("⌗ " + viewStore.searchQuery)
+        .toolbar(content: toolbarView)
       }
+      .navigationViewStyle(StackNavigationViewStyle())
     }
   }
-//  let store: Store<SearchState, SearchAction>
-//
-//  var body: some View {
-//    WithViewStore(store) { viewStore in
-//      NavigationView {
-//        VStack(alignment: .leading) {
-//
-//          if viewStore.isCommited == .home {
-//            List(viewStore.scopes.filter{$0.hasPrefix(viewStore.searchText)}, id: \.self) { scope in
-//              Text(scope)
-//            }
-//          }
-//
-//          WeatherClientView(store: store)
-//
-//          HStack {
-//            TextField(
-//              viewStore.scopeTitle != Scopes.home.rawValue ? "스코프를 재설정 하시려면 home을 입력해 주세요." : "원하는 스코프를 정해주세요.",
-//              text: viewStore.binding(
-//                get: \.searchQuery,
-//                send: SearchAction.searchQueryChanged),
-//              onCommit:  {
-//                switch viewStore.isCommited {
-//                case .home:
-//                  viewStore.send(.commitScope(Scopes(rawValue: viewStore.scopes.first ?? "home") ?? .home))
-//                case .weatherClient:
-//                  if viewStore.searchQuery == Scopes.home.rawValue {
-//                    viewStore.send(.commitScope(.home))
-//                  }
-//                }
-//                viewStore.send(.searchQueryChanged(String()))
-//              }
-//            )
-//              .introspectTextField { textField in
-//                textField.becomeFirstResponder()
-//              }
-//              .textFieldStyle(RoundedBorderTextFieldStyle())
-//              .autocapitalization(.none)
-//              .disableAutocorrection(true)
-//          }
-//          .padding([.leading, .trailing], 16)
-//        }
-//        .navigationTitle("# " + viewStore.scopeTitle)
-//      }
-//      .navigationViewStyle(StackNavigationViewStyle())
-//    }
-//  }
+  
+  func toolbarView() -> some View {
+    Button {
+      print("tollbar action")
+    } label: {
+      Label("Settings", systemImage: "gearshape")
+        .foregroundColor(Color.black)
+    }
+  }
+  //
+  //    .onAppear {
+  //      viewStore.send(.searchQueryChanged(""))
+  //    }
+  
+  
+  //  let store: Store<SearchState, SearchAction>
+  //
+  //  var body: some View {
+  //    WithViewStore(store) { viewStore in
+  //      NavigationView {
+  //        VStack(alignment: .leading) {
+  //
+  //          if viewStore.isCommited == .home {
+  //            List(viewStore.scopes.filter{$0.hasPrefix(viewStore.searchText)}, id: \.self) { scope in
+  //              Text(scope)
+  //            }
+  //          }
+  //
+  //          WeatherClientView(store: store)
+  //
+  //          HStack {
+  //            TextField(
+  //              viewStore.scopeTitle != Scopes.home.rawValue ? "스코프를 재설정 하시려면 home을 입력해 주세요." : "원하는 스코프를 정해주세요.",
+  //              text: viewStore.binding(
+  //                get: \.searchQuery,
+  //                send: SearchAction.searchQueryChanged),
+  //              onCommit:  {
+  //                switch viewStore.isCommited {
+  //                case .home:
+  //                  viewStore.send(.commitScope(Scopes(rawValue: viewStore.scopes.first ?? "home") ?? .home))
+  //                case .weatherClient:
+  //                  if viewStore.searchQuery == Scopes.home.rawValue {
+  //                    viewStore.send(.commitScope(.home))
+  //                  }
+  //                }
+  //                viewStore.send(.searchQueryChanged(String()))
+  //              }
+  //            )
+  //              .introspectTextField { textField in
+  //                textField.becomeFirstResponder()
+  //              }
+  //              .textFieldStyle(RoundedBorderTextFieldStyle())
+  //              .autocapitalization(.none)
+  //              .disableAutocorrection(true)
+  //          }
+  //          .padding([.leading, .trailing], 16)
+  //        }
+  //        .navigationTitle("# " + viewStore.scopeTitle)
+  //      }
+  //      .navigationViewStyle(StackNavigationViewStyle())
+  //    }
+  //  }
 }
 
 // MARK: - Private helpers
@@ -249,60 +377,15 @@ struct AppView: View {
 //}()
 
 // MARK: - SwiftUI previews
-//struct SearchView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    let store = Store(
-//      initialState: SearchState(isCommited: .home),
-//      reducer: searchReducer,
-//      environment: SearchEnvironment(
-//        weatherClient: WeatherClient(
-//          searchLocation: { _ in
-//            Effect(value: [
-//              Location(id: 1, title: "Brooklyn"),
-//              Location(id: 2, title: "Los Angeles"),
-//              Location(id: 3, title: "San Francisco"),
-//            ])
-//          },
-//          weather: { id in
-//            Effect(
-//              value: LocationWeather(
-//                consolidatedWeather: [
-//                  .init(
-//                    applicableDate: Date(timeIntervalSince1970: 0),
-//                    maxTemp: 90,
-//                    minTemp: 70,
-//                    theTemp: 80,
-//                    weatherStateName: "Clear"
-//                  ),
-//                  .init(
-//                    applicableDate: Date(timeIntervalSince1970: 86_400),
-//                    maxTemp: 70,
-//                    minTemp: 50,
-//                    theTemp: 60,
-//                    weatherStateName: "Rain"
-//                  ),
-//                  .init(
-//                    applicableDate: Date(timeIntervalSince1970: 172_800),
-//                    maxTemp: 100,
-//                    minTemp: 80,
-//                    theTemp: 90,
-//                    weatherStateName: "Cloudy"
-//                  ),
-//                ],
-//                id: id
-//              ))
-//          }),
-//        github: GithubSearchResult()
-//        ,
-//        mainQueue: .main
-//      )
-//    )
-//
-//    return Group {
-//      AppView(store: store)
-//
-//      AppView(store: store)
-//        .environment(\.colorScheme, .dark)
-//    }
-//  }
-//}
+public struct Chatroom_Previews: PreviewProvider {
+  public static var previews: some View {
+    AppView(
+      store: .init(
+        initialState: AppState(),
+        reducer: AppView.appReducer,
+        environment: .live
+      )
+    )
+  }
+}
+

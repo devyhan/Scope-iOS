@@ -17,7 +17,7 @@ struct RootViewAppearance: ViewModifier {
     func body(content: Content) -> some View {
         content
 //            .blur(radius: isActive ? 0 : 10)
-            .onAppear(perform: UIApplication.shared.addTapGestureRecognizer)
+//            .onAppear(perform: UIApplication.shared.addTapGestureRecognizer)
 //            .onReceive(stateUpdate) { self.isActive = $0 }
             .onReceive(inspection) { callback in
                 callback(AnyView(self.body(content: content)))
@@ -52,16 +52,16 @@ private extension Publishers {
     }
 }
 
-private extension UIApplication {
-    func addTapGestureRecognizer() {
-        guard let window = windows.first else { return }
-        let tapGesture = UITapGestureRecognizer(target: window, action: #selector(UIView.endEditing))
-        tapGesture.requiresExclusiveTouchType = false
-        tapGesture.cancelsTouchesInView = false
-        tapGesture.delegate = self
-        window.addGestureRecognizer(tapGesture)
-    }
-}
+//private extension UIApplication {
+//    func addTapGestureRecognizer() {
+//        guard let window = windows.first else { return }
+//        let tapGesture = UITapGestureRecognizer(target: window, action: #selector(UIView.endEditing))
+//        tapGesture.requiresExclusiveTouchType = false
+//        tapGesture.cancelsTouchesInView = false
+//        tapGesture.delegate = self
+//        window.addGestureRecognizer(tapGesture)
+//    }
+//}
 
 extension UIApplication: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
