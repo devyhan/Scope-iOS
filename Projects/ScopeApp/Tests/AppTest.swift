@@ -6,8 +6,8 @@
 //  Copyright © 2021 com.devyhan93.scope. All rights reserved.
 //
 
-import XCTest
 import ComposableArchitecture
+import XCTest
 
 @testable import ScopeApp
 
