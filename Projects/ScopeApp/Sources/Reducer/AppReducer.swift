@@ -7,12 +7,18 @@
 
 import ComposableArchitecture
 import ScopeCore
+import Vender
 
 extension AppView {
   public static let appReducer = Reducer.combine(
     scopeChangeReducer,
     Reducer<AppState, AppAction, AppEnvironment>() { state, action, environment in
       switch action {
+      case .onAppear:
+
+          class DummyForBundle {}
+          environment.firebase.firebaseRegisterFacade.register(bundle: Bundle(for: DummyForBundle.self), plistName: "GoogleService-Info")
+          return .none
       case .incrementButtonTapped:
         state.count += 1
         return .none

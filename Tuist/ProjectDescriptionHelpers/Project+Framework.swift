@@ -14,9 +14,7 @@ extension Project {
             infoPlist: .extendingDefault(with: infoPlist),
             sources: ["Sources/**"],
             resources: [],
-            dependencies: [
-                .external(name: "ComposableArchitecture"),
-            ] + frameworkDependencies
+            dependencies: [] + frameworkDependencies
         )
         
         let tests = Target(

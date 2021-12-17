@@ -5,8 +5,6 @@
 //  Created by 조요한 on 2021/12/01.
 //
 
-import ScopeCore
-
 public final class WeatherClientCore: Core {
   public var getWeather: GetWeather
   public var getLocation: GetLocation

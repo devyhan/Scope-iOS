@@ -6,7 +6,7 @@ let project = Project(
     organizationName: "com.devyhan93.scope",
     targets: Project.staticFrameworkTargets(
         name: "Vender",
-        frameworkDependencies: [],
+        frameworkDependencies: TargetDependency.firebase,
         testDependencies: []
     ),
     schemes: [],

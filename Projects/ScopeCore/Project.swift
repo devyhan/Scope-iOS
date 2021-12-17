@@ -6,7 +6,9 @@ let project = Project(
     organizationName: "com.devyhan93.scope",
     targets: Project.staticFrameworkTargets(
         name: "ScopeCore",
-        frameworkDependencies: [],
+        frameworkDependencies: [
+            .external(name: "ComposableArchitecture"),
+        ],
         testDependencies: []
     ),
     schemes: [],

@@ -6,7 +6,6 @@
 //
 
 import Combine
-import ScopeCore
 
 public protocol GetWeather {
   func execute(id: String) -> AnyPublisher<LocationWeather, Error>

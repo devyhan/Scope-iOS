@@ -1,6 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 import ScopeCore
+import Vender
 
 @main
 struct Scope: App {
@@ -18,12 +19,14 @@ struct Scope: App {
 }
 
 extension AppEnvironment {
-  static let live: AppEnvironment = { 
+  static let live: AppEnvironment = {
     let weatherClient = WeatherClientCore()
+      let firebase = FirebaseCore()
     
     return .init(
       mainQueue: .main,
-      weatherCLient: weatherClient
+      weatherCLient: weatherClient,
+      firebase: firebase
     )
   }()
 }

@@ -284,6 +284,9 @@ struct AppView: View {
         .navigationTitle("⌗ " + viewStore.searchQuery)
         .toolbar(content: toolbarView)
       }
+      .onAppear {
+          viewStore.send(.onAppear)
+      }
     }
   }
   

@@ -7,16 +7,20 @@
 
 import ComposableArchitecture
 import ScopeCore
+import Vender
 
 public class AppEnvironment {
   let mainQueue: AnySchedulerOf<DispatchQueue>
-  let weatherClient: Core
+    let weatherClient: ScopeCore.Core
+    let firebase: Vender.Core
   
   public init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
-    weatherCLient: Core
+    weatherCLient: ScopeCore.Core,
+    firebase: Vender.Core
   ) {
     self.mainQueue = mainQueue
     self.weatherClient = weatherCLient
+      self.firebase = firebase
   }
 }

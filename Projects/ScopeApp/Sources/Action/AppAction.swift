@@ -9,6 +9,7 @@ import ComposableArchitecture
 import ScopeCore
 
 enum AppAction: BindableAction {
+  case onAppear
   case binding(BindingAction<AppState>)
   case home(HomeAction)
   case weatherClient(WeatherClientAction)
