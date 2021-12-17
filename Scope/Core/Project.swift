@@ -2,10 +2,10 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project(
-    name: "ScopeCore",
+    name: "Core",
     organizationName: "com.devyhan93.scope",
     targets: Project.staticFrameworkTargets(
-        name: "ScopeCore",
+        name: "Core",
         frameworkDependencies: [
             .external(name: "ComposableArchitecture"),
         ],

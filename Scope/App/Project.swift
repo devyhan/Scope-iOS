@@ -2,14 +2,14 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project(
-    name: "ScopeApp",
+    name: "App",
     organizationName: "com.devyhan93.scope",
     settings: .settings(base: SettingsDictionary().otherLinkerFlags("-ObjC")),
     targets: Project.appTargets(
-        name: "ScopeApp",
+        name: "App",
         appDependencies: [
-            .project(target: "ScopeCore", path: "../ScopeCore"),
-            .project(target: "ScopeUI", path: "../ScopeUI"),
+            .project(target: "Core", path: "../Core"),
+            .project(target: "UI", path: "../UI"),
             .project(target: "Vender", path: "../Vender"),
             .external(name: "ComposableArchitecture"),
         ],
