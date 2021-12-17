@@ -13,7 +13,7 @@ struct GetLoactionImpl: GetLocation {
   func execute(query: String) -> AnyPublisher<Array<Location>, Error> {
     var components = URLComponents(string: "https://www.metaweather.com/api/location/search")!
     components.queryItems = [URLQueryItem(name: "query", value: query)]
-
+    
     return URLSession.shared.dataTaskPublisher(for: components.url!)
       .map { data, _ in data }
       .decode(type: [LocationDTO].self, decoder: jsonDecoder)

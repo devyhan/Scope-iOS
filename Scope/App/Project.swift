@@ -4,6 +4,7 @@ import ProjectDescriptionHelpers
 let project = Project(
     name: "App",
     organizationName: "com.devyhan93.scope",
+    options: [.textSettings(indentWidth: 2, tabWidth: 2)],
     settings: .settings(base: SettingsDictionary().otherLinkerFlags("-ObjC")),
     targets: Project.appTargets(
         name: "App",

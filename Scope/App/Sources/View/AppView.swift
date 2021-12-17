@@ -251,16 +251,16 @@ struct AppView: View {
                   "원하는 스코프를 입력하세요",
                   text: viewStore.binding(\.$searchQuery),
                   onCommit: {
-                  
+                    
                   }
                 )
-//                  .introspectTextField { textField in
-//                    textField.becomeFirstResponder()
-//                  }
-//                  .autocapitalization(.none)
+                //                  .introspectTextField { textField in
+                //                    textField.becomeFirstResponder()
+                //                  }
+                //                  .autocapitalization(.none)
                   .disableAutocorrection(true)
                   .foregroundColor(Color.white)
-//                  .multilineTextAlignment(.center)
+                //                  .multilineTextAlignment(.center)
                 
                 Button {
                   print("commit action")
@@ -285,7 +285,7 @@ struct AppView: View {
         .toolbar(content: toolbarView)
       }
       .onAppear {
-          viewStore.send(.onAppear)
+        viewStore.send(.onAppear)
       }
     }
   }

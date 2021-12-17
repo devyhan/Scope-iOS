@@ -9,17 +9,17 @@
 import FirebaseAnalytics
 
 struct FirebaseAnalyticsFacadeImpl: FirebaseAnalyticsFacade {
-    func logEvent(event: AppLogEvent) {
-        logEvent(event: event, attr: [])
-    }
-
-    func logEvent(event: AppLogEvent, attr: AppLogEventAttribute...) {
-        logEvent(event: event, attr: attr)
-    }
-
-    func logEvent(event: AppLogEvent, attr: [AppLogEventAttribute]) {
-        var dict: [String: Any] = [:]
-        attr.forEach { dict.merge($0.analyticsParameter) { _, new in new } }
-        Analytics.logEvent(event.rawValue, parameters: dict)
-    }
+  func logEvent(event: AppLogEvent) {
+    logEvent(event: event, attr: [])
+  }
+  
+  func logEvent(event: AppLogEvent, attr: AppLogEventAttribute...) {
+    logEvent(event: event, attr: attr)
+  }
+  
+  func logEvent(event: AppLogEvent, attr: [AppLogEventAttribute]) {
+    var dict: [String: Any] = [:]
+    attr.forEach { dict.merge($0.analyticsParameter) { _, new in new } }
+    Analytics.logEvent(event.rawValue, parameters: dict)
+  }
 }

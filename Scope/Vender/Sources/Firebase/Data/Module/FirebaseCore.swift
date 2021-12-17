@@ -7,11 +7,11 @@
 //
 
 public final class FirebaseCore: Core {
-    public var firebaseRegisterFacade: FirebaseRegisterFacade
-    public var firebaseAnalyticsFacade: FirebaseAnalyticsFacade
-    
-    public init() {
-        self.firebaseRegisterFacade = FirebaseRegisterFacadeImpl()
-        self.firebaseAnalyticsFacade = FirebaseAnalyticsFacadeImpl()
-    }
+  public var firebaseRegisterFacade: FirebaseRegisterFacade
+  public var firebaseAnalyticsFacade: FirebaseAnalyticsFacade
+  
+  public init() {
+    self.firebaseRegisterFacade = FirebaseRegisterFacadeImpl()
+    self.firebaseAnalyticsFacade = FirebaseAnalyticsFacadeImpl()
+  }
 }

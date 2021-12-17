@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol FirebaseRegisterFacade {
-    func register(bundle: Bundle, plistName: String)
+  func register(bundle: Bundle, plistName: String)
 }

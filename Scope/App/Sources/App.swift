@@ -21,7 +21,7 @@ struct Scope: App {
 extension AppEnvironment {
   static let live: AppEnvironment = {
     let weatherClient = WeatherClientCore()
-      let firebase = FirebaseCore()
+    let firebase = FirebaseCore()
     
     return .init(
       mainQueue: .main,
@@ -29,4 +29,13 @@ extension AppEnvironment {
       firebase: firebase
     )
   }()
+}
+
+public extension Optional {
+  var isNil: Bool {
+    guard case Optional.none = self else {
+      return false
+    }
+    return true
+  }
 }

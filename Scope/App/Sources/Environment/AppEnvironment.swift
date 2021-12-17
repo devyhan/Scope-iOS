@@ -11,8 +11,8 @@ import Vender
 
 public class AppEnvironment {
   let mainQueue: AnySchedulerOf<DispatchQueue>
-    let weatherClient: ScopeCore.Core
-    let firebase: Vender.Core
+  let weatherClient: ScopeCore.Core
+  let firebase: Vender.Core
   
   public init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
@@ -21,6 +21,6 @@ public class AppEnvironment {
   ) {
     self.mainQueue = mainQueue
     self.weatherClient = weatherCLient
-      self.firebase = firebase
+    self.firebase = firebase
   }
 }

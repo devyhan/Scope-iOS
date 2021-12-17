@@ -10,11 +10,11 @@ import FirebaseAnalytics
 import FirebaseCore
 
 struct FirebaseRegisterFacadeImpl: FirebaseRegisterFacade {
-    func register(bundle: Bundle, plistName: String) {
-        bundle.path(forResource: plistName, ofType: "plist")
-            .flatMap { FirebaseOptions(contentsOfFile: $0) }
-            .flatMap { FirebaseApp.configure(options: $0) }
-    }
+  func register(bundle: Bundle, plistName: String) {
+    bundle.path(forResource: plistName, ofType: "plist")
+      .flatMap { FirebaseOptions(contentsOfFile: $0) }
+      .flatMap { FirebaseApp.configure(options: $0) }
+  }
 }
 
 //public protocol FirebaseFacadeType {

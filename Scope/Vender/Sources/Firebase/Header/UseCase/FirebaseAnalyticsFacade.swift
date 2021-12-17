@@ -7,7 +7,7 @@
 //
 
 public protocol FirebaseAnalyticsFacade {
-    func logEvent(event: AppLogEvent)
-    func logEvent(event: AppLogEvent, attr: AppLogEventAttribute...)
-    func logEvent(event: AppLogEvent, attr: [AppLogEventAttribute])
+  func logEvent(event: AppLogEvent)
+  func logEvent(event: AppLogEvent, attr: AppLogEventAttribute...)
+  func logEvent(event: AppLogEvent, attr: [AppLogEventAttribute])
 }

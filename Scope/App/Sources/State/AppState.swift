@@ -14,6 +14,7 @@ public struct AppState: Equatable {
   var seqrchQueryString: String = "Scope"
   var scope: Scope = .home(HomeState())
   var count: Int = .zero
+  var someValue: String?
   
   enum Scope: CaseIterable, Equatable {
     case home(HomeState?)

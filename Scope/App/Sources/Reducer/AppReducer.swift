@@ -15,31 +15,30 @@ extension AppView {
     Reducer<AppState, AppAction, AppEnvironment>() { state, action, environment in
       switch action {
       case .onAppear:
-
-          class DummyForBundle {}
-          environment.firebase.firebaseRegisterFacade.register(bundle: Bundle(for: DummyForBundle.self), plistName: "GoogleService-Info")
-          return .none
+        class DummyForBundle {}
+        environment.firebase.firebaseRegisterFacade.register(bundle: Bundle(for: DummyForBundle.self), plistName: "GoogleService-Info")
+        return .none
       case .incrementButtonTapped:
         state.count += 1
         return .none
-//      case .binding:
-//        return .none
+        //      case .binding:
+        //        return .none
         
-//      case .searchQueryChanged:
-//        return environment.weatherClient
-//          .getWeather
-//          .execute(id: "44418")
-//          .receive(on: environment.mainQueue)
-//          .catchToEffect()
-//          .map { AppAction.locationWeatherResponse($0) }
+        //      case .searchQueryChanged:
+        //        return environment.weatherClient
+        //          .getWeather
+        //          .execute(id: "44418")
+        //          .receive(on: environment.mainQueue)
+        //          .catchToEffect()
+        //          .map { AppAction.locationWeatherResponse($0) }
         
-//      case .locationWeatherResponse(.success(let location)):
-//        print("location: \(location)")
-//        return .none
-//
-//      case .locationWeatherResponse(.failure(let error)):
-//        print("error: \(error)")
-//        return .none
+        //      case .locationWeatherResponse(.success(let location)):
+        //        print("location: \(location)")
+        //        return .none
+        //
+        //      case .locationWeatherResponse(.failure(let error)):
+        //        print("error: \(error)")
+        //        return .none
         
       default:
         return .none
@@ -47,7 +46,7 @@ extension AppView {
     }
   )
 }
-    
+
 extension AppView {
   public static let scopeChangeReducer = Reducer<AppState, AppAction, AppEnvironment>() {
     state, action, environment in
