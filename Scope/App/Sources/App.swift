@@ -1,6 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
-import ScopeCore
+import Domain
 import Vender
 
 @main

@@ -6,7 +6,6 @@
 //
 
 import Combine
-import ScopeCore
 
 func translator(_ dto: LocationDTO) -> Location {
   let id = "\(dto.id)"

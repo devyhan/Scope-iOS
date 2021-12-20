@@ -10,8 +10,8 @@ import FirebaseAnalytics
 import FirebaseCore
 
 struct FirebaseRegisterFacadeImpl: FirebaseRegisterFacade {
-  func register(bundle: Bundle, plistName: String) {
-    bundle.path(forResource: plistName, ofType: "plist")
+  func register(bundle: Bundle, scheme: String) {
+    bundle.path(forResource: "GoogleService-Info", ofType: "plist")
       .flatMap { FirebaseOptions(contentsOfFile: $0) }
       .flatMap { FirebaseApp.configure(options: $0) }
   }

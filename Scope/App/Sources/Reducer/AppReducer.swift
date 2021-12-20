@@ -6,8 +6,8 @@
 //
 
 import ComposableArchitecture
-import ScopeCore
 import Vender
+import FirebaseCrashlytics
 
 extension AppView {
   public static let appReducer = Reducer.combine(
@@ -15,8 +15,8 @@ extension AppView {
     Reducer<AppState, AppAction, AppEnvironment>() { state, action, environment in
       switch action {
       case .onAppear:
-        class DummyForBundle {}
-        environment.firebase.firebaseRegisterFacade.register(bundle: Bundle(for: DummyForBundle.self), plistName: "GoogleService-Info")
+        environment.firebase.firebaseRegisterFacade
+          .register(bundle: Bundle.module, scheme: "Dev")
         return .none
       case .incrementButtonTapped:
         state.count += 1

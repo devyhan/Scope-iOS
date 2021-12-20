@@ -4,7 +4,7 @@ let workspace = Workspace(
     name: "Scope",
     projects: [
         "Scope/App",
-        "Scope/Core",
+        "Scope/Domain",
         "Scope/UI",
         "Scope/Vender"
     ]

@@ -28,6 +28,25 @@ extension Project {
             sources: ["Sources/**"],
             resources: ["Resources/**"],
 //            scripts: targetScripts,
+            scripts: [
+//                .pre(
+//                    path: "BuildPhases/swiftgen.sh",
+//                    name: "Swiftgen"
+//                ),
+                
+                .post(
+                    path: "BuildPhases/Crashlytics/run.sh",
+                    name: "Crashlytics run",
+                    inputPaths: [
+                        "${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+                        "${SRCROOT}/Derived/InfoPlists/App.plist"
+                    ]
+                ),
+                .post(
+                    path: "BuildPhases/Crashlytics/upload-symbols.sh",
+                    name: "Crashlytics upload symbols"
+                )
+            ],
             dependencies: appDependencies
 
         )
@@ -36,7 +55,7 @@ extension Project {
             name: "\(name)Tests",
             platform: .iOS,
             product: .unitTests,
-            bundleId: "com.devyhan93.\(name)Tests",
+            bundleId: "com.scope.\(name)Tests",
             infoPlist: .default,
             sources: ["Tests/**"],
             dependencies: [.target(name: "\(name)")] + testDependencies

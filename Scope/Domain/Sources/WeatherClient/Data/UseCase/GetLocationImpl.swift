@@ -7,7 +7,6 @@
 
 import Combine
 import ComposableArchitecture
-import ScopeCore
 
 struct GetLoactionImpl: GetLocation {
   func execute(query: String) -> AnyPublisher<Array<Location>, Error> {

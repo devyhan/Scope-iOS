@@ -6,7 +6,6 @@
 //
 
 import ComposableArchitecture
-import ScopeCore
 
 enum AppAction: BindableAction {
   case onAppear

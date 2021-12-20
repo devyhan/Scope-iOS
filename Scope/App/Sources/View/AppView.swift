@@ -251,7 +251,8 @@ struct AppView: View {
                   "원하는 스코프를 입력하세요",
                   text: viewStore.binding(\.$searchQuery),
                   onCommit: {
-                    
+                    let num = [0]
+                    let _ = num[1]
                   }
                 )
                 //                  .introspectTextField { textField in
@@ -264,6 +265,7 @@ struct AppView: View {
                 
                 Button {
                   print("commit action")
+                  fatalError()
                 } label: {
                   Image(systemName: "return")
                     .foregroundColor(Color.white)
