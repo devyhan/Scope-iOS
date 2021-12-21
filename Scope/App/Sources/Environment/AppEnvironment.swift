@@ -7,17 +7,17 @@
 
 import ComposableArchitecture
 import Domain
-import Vender
+import Vendor
 
 public class AppEnvironment {
   let mainQueue: AnySchedulerOf<DispatchQueue>
   let weatherClient: Domain.Core
-  let firebase: Vender.Core
+  let firebase: Vendor.Core
   
   public init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
     weatherCLient: Domain.Core,
-    firebase: Vender.Core
+    firebase: Vendor.Core
   ) {
     self.mainQueue = mainQueue
     self.weatherClient = weatherCLient

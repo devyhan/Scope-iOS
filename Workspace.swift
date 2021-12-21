@@ -4,8 +4,9 @@ let workspace = Workspace(
     name: "Scope",
     projects: [
         "Scope/App",
+        "Scope/Common",
         "Scope/Domain",
-        "Scope/UI",
-        "Scope/Vender"
+        "Scope/UserInterface",
+        "Scope/Vendors"
     ]
 )

@@ -1,3 +1,4 @@
+import Dependency
 import ProjectDescription
 import ProjectDescriptionHelpers
 
@@ -7,9 +8,7 @@ let project = Project(
     options: [.textSettings(indentWidth: 2, tabWidth: 2)],
     targets: Project.staticFrameworkTargets(
         name: "Domain",
-        frameworkDependencies: [
-            .external(name: "ComposableArchitecture"),
-        ],
+        frameworkDependencies: [],
         testDependencies: []
     ),
     schemes: [],
