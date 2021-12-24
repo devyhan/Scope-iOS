@@ -1,7 +1,7 @@
-import SwiftUI
 import ComposableArchitecture
 import Domain
-import Vender
+import SwiftUI
+import Vendor
 
 @main
 struct Scope: App {

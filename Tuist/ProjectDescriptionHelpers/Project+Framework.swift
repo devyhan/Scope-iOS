@@ -31,5 +31,3 @@ extension Project {
         return [sources, tests]
     }
 }
-
-

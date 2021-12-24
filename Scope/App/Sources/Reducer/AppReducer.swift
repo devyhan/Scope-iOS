@@ -6,8 +6,8 @@
 //
 
 import ComposableArchitecture
-import Vender
 import FirebaseCrashlytics
+import Vendor
 
 extension AppView {
   public static let appReducer = Reducer.combine(

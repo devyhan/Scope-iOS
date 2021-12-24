@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import XCTest
 
-@testable import ScopeApp
+@testable import App
 
 class AppTest: XCTestCase {
   let scheduler = DispatchQueue.test

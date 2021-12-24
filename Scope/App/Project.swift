@@ -1,3 +1,4 @@
+import Dependency
 import ProjectDescription
 import ProjectDescriptionHelpers
 
@@ -5,14 +6,16 @@ let project = Project(
     name: "App",
     organizationName: "com.devyhan93.scope",
     options: [.textSettings(indentWidth: 2, tabWidth: 2)],
+    packages: [ .composableArchitecture ],
     settings: .settings(base: SettingsDictionary().otherLinkerFlags("-ObjC").debugInformationFormat(.dwarfWithDsymFile)),
     targets: Project.appTargets(
         name: "App",
         appDependencies: [
-            .project(target: "Domain", path: "../Domain"),
-            .project(target: "UI", path: "../UI"),
-            .project(target: "Vender", path: "../Vender"),
-            .external(name: "ComposableArchitecture"),
+            .Project.Common.common,
+            .Project.Domain.domain,
+            .Project.UserInterface.userInterface,
+            .Project.Vendor.vendor,
+            .SPM.composableArchitecture
         ],
         testDependencies: []
     ),
