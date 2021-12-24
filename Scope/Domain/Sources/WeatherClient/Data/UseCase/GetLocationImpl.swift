@@ -6,7 +6,7 @@
 //
 
 import Combine
-import ComposableArchitecture
+import Foundation
 
 struct GetLoactionImpl: GetLocation {
   func execute(query: String) -> AnyPublisher<Array<Location>, Error> {

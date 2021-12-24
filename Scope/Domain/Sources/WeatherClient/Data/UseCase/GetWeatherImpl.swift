@@ -6,7 +6,7 @@
 //
 
 import Combine
-import ComposableArchitecture
+import Foundation
 
 struct GetWeatherImpl: GetWeather {
   func execute(id: String) -> AnyPublisher<LocationWeather, Error> {
