@@ -16,7 +16,7 @@ $ tuist generate --open
 ```
 
 ### Project dependencies
-<img src = "./Asset/readme/graph.png" width="100%" height="100%">
+<img src = "./Asset/graph.png" width="100%" height="100%">
 
 ### TDD
 TDD는 기본적으로 Red Green Refactor사이클을 따르며 프로덕션 코드를 작성하기 전에 테스트를 먼저 작성합니다

@@ -11,6 +11,7 @@ extension TargetDependency {
     public struct Project {
         public struct Common {}
         public struct Domain {}
+        public struct ThirdPartyLibrary {}
         public struct UserInterface {}
         public struct Vendor {}
     }
@@ -22,6 +23,10 @@ public extension TargetDependency.Project.Common {
 
 public extension TargetDependency.Project.Domain {
     static let domain = project(name: "Domain", path: "../Domain")
+}
+
+public extension TargetDependency.Project.ThirdPartyLibrary {
+    static let thirdPartyLibrary = project(name: "ThirdPartyLibrary", path: "../ThirdPartyLibrary")
 }
 
 public extension TargetDependency.Project.UserInterface {

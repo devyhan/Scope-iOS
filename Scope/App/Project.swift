@@ -6,7 +6,7 @@ let project = Project(
     name: "App",
     organizationName: "com.devyhan93.scope",
     options: [.textSettings(indentWidth: 2, tabWidth: 2)],
-    packages: [ .composableArchitecture ],
+//    packages: [ .composableArchitecture ],
     settings: .settings(base: SettingsDictionary().otherLinkerFlags("-ObjC").debugInformationFormat(.dwarfWithDsymFile)),
     targets: Project.appTargets(
         name: "App",
@@ -15,16 +15,14 @@ let project = Project(
             .Project.Domain.domain,
             .Project.UserInterface.userInterface,
             .Project.Vendor.vendor,
-            .SPM.composableArchitecture
+            .Project.ThirdPartyLibrary.thirdPartyLibrary,
+//            .SPM.composableArchitecture
         ],
         testDependencies: []
     ),
     schemes: [],
     additionalFiles: []
 )
-
-//DWARF as the debug information format. [dwarf] * *DWARF with dSYM File
-//dwarf dwarf-with-dsym
 
 
 public extension SettingsDictionary {

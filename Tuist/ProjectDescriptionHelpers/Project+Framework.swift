@@ -1,15 +1,16 @@
 import ProjectDescription
 
 extension Project {
-    public static func staticFrameworkTargets(
+    public static func frameworkTargets(
         name: String,
         frameworkDependencies: [TargetDependency],
-        testDependencies: [TargetDependency]
+        testDependencies: [TargetDependency],
+        isStatic: Bool? = nil
     ) -> [Target] {
         let sources = Target(
             name: name,
             platform: .iOS,
-            product: .staticFramework,
+            product: isStatic ?? true ? .staticFramework : .framework,
             bundleId: "com.scope.\(name)",
             infoPlist: .extendingDefault(with: infoPlist),
             sources: ["Sources/**"],

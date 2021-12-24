@@ -6,7 +6,7 @@ let project = Project(
     name: "Domain",
     organizationName: "com.devyhan93.scope",
     options: [.textSettings(indentWidth: 2, tabWidth: 2)],
-    targets: Project.staticFrameworkTargets(
+    targets: Project.frameworkTargets(
         name: "Domain",
         frameworkDependencies: [],
         testDependencies: []
