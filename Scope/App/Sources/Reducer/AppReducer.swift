@@ -15,9 +15,16 @@ extension AppView {
     Reducer<AppState, AppAction, AppEnvironment>() { state, action, environment in
       switch action {
       case .onAppear:
-        environment.firebase.firebaseRegisterFacade
-          .register(bundle: Bundle.module, scheme: "Dev")
+        return environment.firebase
+          .remoteConfigFacade
+          .execute(key: "required_version", scheme: "debug")
+          .receive(on: environment.mainQueue)
+          .catchToEffect(AppAction.appVersionResponse)
+        
+      case let .appVersionResponse(.success(version)):
+        print("✅ Version :", version)
         return .none
+        
       case .incrementButtonTapped:
         state.count += 1
         return .none

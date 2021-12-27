@@ -20,16 +20,18 @@ public extension TargetDependency.Framework.Vendor {
 
     static let firebases: [TargetDependency] = [
         firebase(name: "FirebaseAnalytics"),
+        firebase(name: "FirebaseABTesting"),
         firebase(name: "FirebaseCore"),
         firebase(name: "FirebaseCoreDiagnostics"),
         firebase(name: "FirebaseCrashlytics"),
         firebase(name: "FirebaseInstallations"),
+        firebase(name: "FirebaseRemoteConfig"),
         firebase(name: "GoogleAppMeasurement"),
         firebase(name: "GoogleAppMeasurementIdentitySupport"),
         firebase(name: "GoogleDataTransport"),
         firebase(name: "GoogleUtilities"),
         firebase(name: "nanopb"),
-        firebase(name: "PromisesObjC"),
+        firebase(name: "PromisesObjC")
     ]
 }
         

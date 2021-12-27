@@ -1,5 +1,5 @@
 //
-//  FirebaseRegisterFacade.swift
+//  RegisterFacadeImpl.swift
 //  Vendor
 //
 //  Created by 조요한 on 2021/12/14.
@@ -9,7 +9,7 @@
 import FirebaseAnalytics
 import FirebaseCore
 
-struct FirebaseRegisterFacadeImpl: FirebaseRegisterFacade {
+final class RegisterFacadeImpl: RegisterFacade {
   func register(bundle: Bundle, scheme: String) {
     bundle.path(forResource: "GoogleService-Info", ofType: "plist")
       .flatMap { FirebaseOptions(contentsOfFile: $0) }

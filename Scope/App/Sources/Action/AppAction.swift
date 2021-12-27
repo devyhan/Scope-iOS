@@ -12,6 +12,7 @@ enum AppAction: BindableAction {
   case binding(BindingAction<AppState>)
   case home(HomeAction)
   case weatherClient(WeatherClientAction)
+  case appVersionResponse(Result<String, Never>)
   
   case incrementButtonTapped
 }

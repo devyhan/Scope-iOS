@@ -5,6 +5,8 @@ import Vendor
 
 @main
 struct Scope: App {
+  @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+  
   var body: some Scene {
     WindowGroup {
       AppView(
@@ -29,13 +31,4 @@ extension AppEnvironment {
       firebase: firebase
     )
   }()
-}
-
-public extension Optional {
-  var isNil: Bool {
-    guard case Optional.none = self else {
-      return false
-    }
-    return true
-  }
 }

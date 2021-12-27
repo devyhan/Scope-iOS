@@ -14,7 +14,7 @@ public class Logger {}
 
 extension Logger {
   public final class Firebase {
-    static var service: FirebaseAnalyticsFacade = FirebaseAnalyticsFacadeImpl()
+    static var service: AnalyticsFacade = AnalyticsFacadeImpl()
   }
 }
 
