@@ -15,7 +15,8 @@ extension AppView {
     Reducer<AppState, AppAction, AppEnvironment>() { state, action, environment in
       switch action {
       case .onAppear:
-        environment.firebase.firebaseRegisterFacade
+        environment.firebase
+          .registerFacade
           .register(bundle: Bundle.module, scheme: "Dev")
         return .none
       case .incrementButtonTapped:

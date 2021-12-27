@@ -1,5 +1,5 @@
 //
-//  FirebaseAnalyticsFacade.swift
+//  AnalyticsFacadeImpl.swift
 //  Vendor
 //
 //  Created by 조요한 on 2021/12/17.
@@ -8,7 +8,7 @@
 
 import FirebaseAnalytics
 
-struct FirebaseAnalyticsFacadeImpl: FirebaseAnalyticsFacade {
+struct AnalyticsFacadeImpl: AnalyticsFacade {
   func logEvent(event: AppLogEvent) {
     logEvent(event: event, attr: [])
   }

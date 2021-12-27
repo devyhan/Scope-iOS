@@ -9,6 +9,6 @@
 import Foundation
 
 public protocol Core {
-  var firebaseRegisterFacade: FirebaseRegisterFacade { get }
-  var firebaseAnalyticsFacade: FirebaseAnalyticsFacade { get }
+  var registerFacade: RegisterFacade { get }
+  var analyticsFacade: AnalyticsFacade { get }
 }

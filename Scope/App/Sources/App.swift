@@ -30,12 +30,3 @@ extension AppEnvironment {
     )
   }()
 }
-
-public extension Optional {
-  var isNil: Bool {
-    guard case Optional.none = self else {
-      return false
-    }
-    return true
-  }
-}
