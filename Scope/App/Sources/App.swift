@@ -5,6 +5,8 @@ import Vendor
 
 @main
 struct Scope: App {
+  @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+  
   var body: some Scene {
     WindowGroup {
       AppView(

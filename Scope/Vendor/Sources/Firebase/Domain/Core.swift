@@ -11,4 +11,5 @@ import Foundation
 public protocol Core {
   var registerFacade: RegisterFacade { get }
   var analyticsFacade: AnalyticsFacade { get }
+  var remoteConfigFacade: RemoteConfigFacade { get }
 }

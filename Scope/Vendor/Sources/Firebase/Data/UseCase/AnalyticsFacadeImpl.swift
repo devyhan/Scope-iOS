@@ -8,7 +8,7 @@
 
 import FirebaseAnalytics
 
-struct AnalyticsFacadeImpl: AnalyticsFacade {
+final class AnalyticsFacadeImpl: AnalyticsFacade {
   func logEvent(event: AppLogEvent) {
     logEvent(event: event, attr: [])
   }

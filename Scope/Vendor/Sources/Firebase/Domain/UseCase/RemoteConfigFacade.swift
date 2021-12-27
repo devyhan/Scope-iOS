@@ -9,5 +9,5 @@
 import Combine
 
 public protocol RemoteConfigFacade {
-  func fetch()
+  func execute(key: String, scheme: String) -> AnyPublisher<String, Never>
 }

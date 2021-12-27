@@ -9,9 +9,11 @@
 public final class FirebaseCore: Core {
   public var registerFacade: RegisterFacade
   public var analyticsFacade: AnalyticsFacade
+  public var remoteConfigFacade: RemoteConfigFacade
   
   public init() {
     self.registerFacade = RegisterFacadeImpl()
     self.analyticsFacade = AnalyticsFacadeImpl()
+    self.remoteConfigFacade = RemoteConfigFacadeImpl()
   }
 }
