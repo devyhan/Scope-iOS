@@ -10,7 +10,8 @@ let project = Project(
     targets: Project.frameworkTargets(
         name: "ThirdPartyLibrary",
         frameworkDependencies: [
-            .SPM.composableArchitecture
+            .SPM.composableArchitecture,
+            .SPM.composableCoreLocation
         ],
         testDependencies: [],
         isStatic: false
