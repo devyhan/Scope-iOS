@@ -7,13 +7,13 @@
 
 import ProjectDescription
 
-extension TargetDependency {
+extension Target {
     public struct SPM {}
 }
 
-public extension TargetDependency.SPM {
-    static let composableArchitecture = TargetDependency.package(product: "ComposableArchitecture")
-    static let composableCoreLocation = TargetDependency.package(product: "ComposableCoreLocation")
+public extension Target.SPM {
+    static let composableArchitecture = Target.package(product: "ComposableArchitecture")
+    static let composableCoreLocation = Target.package(product: "ComposableCoreLocation")
 }
 
 public extension Package {

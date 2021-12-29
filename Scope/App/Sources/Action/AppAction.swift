@@ -6,16 +6,10 @@
 //
 
 import ComposableArchitecture
+import UserInterface
 
-enum AppAction: BindableAction {
+enum AppAction {
   case onAppear
-  case binding(BindingAction<AppState>)
   case home(HomeAction)
-  case weatherClient(WeatherClientAction)
   case appVersionResponse(Result<String, Never>)
-  
-  case incrementButtonTapped
 }
-
-enum HomeAction {}
-enum WeatherClientAction {}

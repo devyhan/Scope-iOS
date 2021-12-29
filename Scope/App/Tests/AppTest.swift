@@ -12,16 +12,16 @@ import XCTest
 @testable import App
 
 class AppTest: XCTestCase {
-  let scheduler = DispatchQueue.test
-  let store = TestStore(
-    initialState: AppState(),
-    reducer: AppView.appReducer,
-    environment: .live
-  )
-  
-  func test_increment_button_tapped() {
-    store.send(.incrementButtonTapped) {
-      $0.count = 1
-    }
-  }
+//  let scheduler = DispatchQueue.test
+//  let store = TestStore(
+//    initialState: AppState(),
+//    reducer: AppView.appReducer,
+//    environment: .live
+//  )
+//  
+//  func test_increment_button_tapped() {
+//    store.send(.incrementButtonTapped) {
+//      $0.count = 1
+//    }
+//  }
 }

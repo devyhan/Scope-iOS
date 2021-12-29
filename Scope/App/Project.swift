@@ -15,8 +15,7 @@ let project = Project(
             .Project.Domain.domain,
             .Project.UserInterface.userInterface,
             .Project.Vendor.vendor,
-            .Project.ThirdPartyLibrary.thirdPartyLibrary,
-//            .SPM.composableArchitecture
+            .Project.ThirdPartyLibrary.thirdPartyLibrary
         ],
         testDependencies: []
     ),

@@ -7,7 +7,7 @@
 
 import ProjectDescription
 
-extension TargetDependency {
+extension Target {
     public struct Project {
         public struct Common {}
         public struct Domain {}
@@ -17,27 +17,26 @@ extension TargetDependency {
     }
 }
 
-public extension TargetDependency.Project.Common {
+public extension Target.Project.Common {
     static let common = project(name: "Common", path: "../Common")
 }
 
-public extension TargetDependency.Project.Domain {
+public extension Target.Project.Domain {
     static let domain = project(name: "Domain", path: "../Domain")
 }
 
-public extension TargetDependency.Project.ThirdPartyLibrary {
+public extension Target.Project.ThirdPartyLibrary {
     static let thirdPartyLibrary = project(name: "ThirdPartyLibrary", path: "../ThirdPartyLibrary")
 }
 
-public extension TargetDependency.Project.UserInterface {
+public extension Target.Project.UserInterface {
     static let userInterface = project(name: "UserInterface", path: "../UserInterface")
 }
 
-public extension TargetDependency.Project.Vendor {
+public extension Target.Project.Vendor {
     static let vendor = project(name: "Vendor", path: "../Vendor")
 }
 
-private func project(name: String, path: String) -> TargetDependency {
+private func project(name: String, path: String) -> Target {
     .project(target: "\(name)", path: "\(path)")
 }
-
