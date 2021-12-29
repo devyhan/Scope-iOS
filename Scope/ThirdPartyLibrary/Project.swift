@@ -6,13 +6,16 @@ let project = Project(
     name: "ThirdPartyLibrary",
     organizationName: "com.devyhan93.scope",
     options: [.textSettings(indentWidth: 2, tabWidth: 2)],
-    packages: [ .composableArchitecture ],
-    targets: Project.frameworkTargets(
+    packages: [
+        .composableArchitecture,
+        .composableCoreLocation
+    ],
+    targets: Project.dynamicFrameworkTargets(
         name: "ThirdPartyLibrary",
         frameworkDependencies: [
-            .SPM.composableArchitecture
+            .SPM.composableArchitecture,
+            .SPM.composableCoreLocation
         ],
-        testDependencies: [],
-        isStatic: false
+        testDependencies: []
     )
 )

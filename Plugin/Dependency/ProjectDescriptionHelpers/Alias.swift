@@ -7,4 +7,4 @@
 
 import ProjectDescription
 
-//public typealias Target = TargetDependency
+public typealias Target = TargetDependency

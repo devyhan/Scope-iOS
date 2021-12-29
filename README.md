@@ -18,6 +18,18 @@ $ tuist generate --open
 ### Project dependencies
 <img src = "./Asset/graph.png" width="100%" height="100%">
 
+<!-- ### Architecture
+앱의 기능이 늘어나고 복잡해짐에 따라서 앱을 관리하기 위하여 Layered Architecture를 도입하여 앱의 복잡도를 낮추어 관리합니다.
+
+<p align="center">
+    <img src = "./Asset/LayeredArchitectureDetailed.svg" width="32%" height="32%">
+    <p align="center">
+    <img src = "./Asset/LayeredArchitecture.svg" width="32%" height="32%">
+    <img src = "./Asset/DataFlow.svg" width="32%" height="32%">
+    </p>
+</p> -->
+
+
 ### TDD
 TDD는 기본적으로 Red Green Refactor사이클을 따르며 프로덕션 코드를 작성하기 전에 테스트를 먼저 작성합니다
 

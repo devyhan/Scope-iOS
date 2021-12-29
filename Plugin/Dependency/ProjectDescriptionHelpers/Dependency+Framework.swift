@@ -7,18 +7,18 @@
 
 import ProjectDescription
 
-extension TargetDependency {
+extension Target {
     public struct Framework {
         public struct Vendor {}
     }
 }
 
-public extension TargetDependency.Framework.Vendor {
-    private static func firebase(name: String) -> TargetDependency {
+public extension Target.Framework.Vendor {
+    private static func firebase(name: String) -> Target {
         .xcframework(path: .relativeToRoot("Libraries/Vendor/Firebase/\(name).xcframework"))
     }
 
-    static let firebases: [TargetDependency] = [
+    static let firebases: [Target] = [
         firebase(name: "FirebaseAnalytics"),
         firebase(name: "FirebaseABTesting"),
         firebase(name: "FirebaseCore"),

@@ -5,12 +5,12 @@ extension Project {
         name: String,
         frameworkDependencies: [TargetDependency],
         testDependencies: [TargetDependency],
-        isStatic: Bool? = nil
+        isFramework: Bool? = nil
     ) -> [Target] {
         let sources = Target(
             name: name,
             platform: .iOS,
-            product: isStatic ?? true ? .staticFramework : .framework,
+            product: isFramework ?? true ? .staticFramework : .staticLibrary,
             bundleId: "com.scope.\(name)",
             infoPlist: .extendingDefault(with: infoPlist),
             sources: ["Sources/**"],
