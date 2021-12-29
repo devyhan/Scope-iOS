@@ -9,21 +9,6 @@ import SwiftUI
 import ComposableArchitecture
 import UserInterface
 
-//struct HomeView: View {
-//  let store: Store<HomeState, HomeAction>
-//
-//  init(store: Store<HomeState, HomeAction>) {
-//    self.store = store
-//  }
-//
-//  var body: some View {
-//    WithViewStore(store) { viewStore in
-//      Text("Home View")
-//    }
-//  }
-//}
-
-// MARK: - AppView
 struct AppView: View {
   let store: Store<AppState, AppAction>
   
@@ -42,11 +27,8 @@ struct AppView: View {
             )
           )
         }
-        
-//        SwitchStore(store.scope(state: \.scope)) {
-//          CaseLet(state: /AppState.Scope.home, action: AppAction.home, then: HomeView.init(store:))
-//          CaseLet(state: /AppState.Scope.weatherClient, action: AppAction.weatherClient, then: WeatherClientView.init(store:))
-//        }
+        .disabledNavigationBarStyle()
+        .ignoresSafeArea()
       }
       .onAppear {
         viewStore.send(.onAppear)
@@ -55,16 +37,17 @@ struct AppView: View {
   }
 }
 
-// MARK: - SwiftUI previews
-struct Chatroom_Previews: PreviewProvider {
-  static var previews: some View {
-    AppView(
-      store: .init(
-        initialState: AppState(),
-        reducer: AppView.appReducer,
-        environment: .live
+#if DEBUG
+  // MARK: - SwiftUI previews
+  struct Chatroom_Previews: PreviewProvider {
+    static var previews: some View {
+      AppView(
+        store: .init(
+          initialState: AppState(),
+          reducer: AppView.appReducer,
+          environment: .live
+        )
       )
-    )
+    }
   }
-}
-
+#endif

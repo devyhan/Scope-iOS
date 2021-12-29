@@ -27,13 +27,3 @@ public struct HomeView: View {
     }
   }
 }
-
-public struct HomeState: Equatable {
-  public var pointsOfInterest: [PointOfInterest] = []
-  public var region: CoordinateRegion?
-  public init() {}
-}
-
-public enum HomeAction {
-  case updateRegion(CoordinateRegion?)
-}
