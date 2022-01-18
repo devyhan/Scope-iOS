@@ -1,0 +1,15 @@
+import ComposableArchitecture
+
+extension {{ name }}Reducer {
+ public let {{ name|lowercase }}Reducer = Reducer<{{ name }}State, {{ name }}Action, {{ name }}Environment>.combine(
+    {{ name|lowercase }}Reducer.pullback(
+        state: \.{{ name|lowercase }},
+        action: /{{ name }}Action.{{ name|lowercase }},
+        environment: { _ in
+            {{ name }}Environment(
+                
+            )
+        }
+    )
+  )
+}

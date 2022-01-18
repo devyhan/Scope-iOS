@@ -1,0 +1,10 @@
+import ComposableArchitecture
+
+public struct {{ name }}State {
+    public init() { }
+    
+    var {{ name|lowercase }}: {{ name }}State {
+        get { () }
+        set { () = newValue }
+    }
+}

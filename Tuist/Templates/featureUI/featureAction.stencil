@@ -1,0 +1,5 @@
+import ComposableArchitecture
+
+public enum {{ name }}Action {
+    case {{ name|lowercase }}({{ name }}Action)
+}

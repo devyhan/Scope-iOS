@@ -7,7 +7,7 @@ let workspace = Workspace(
         "Scope/Common",
         "Scope/Domain",
         "Scope/UserInterface",
-        "Scope/Vendors",
+        "Scope/Vendor",
         "Scope/ThirdPartyLibrary"
     ]
 )
